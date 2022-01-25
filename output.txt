@@ -1,0 +1,21 @@
+const (
+    EvAxisChanged string = "EvAxisChanged"
+    EvButtonChanged = "EvButtonChanged"
+    EvButtonReleased = "EvButtonReleased"
+    EvButtonPressed = "EvButtonPressed"
+    EvButtonRepeated = "EvButtonRepeated"
+    EvConnected = "EvConnected"
+    EvDisconnected = "EvDisconnected"
+    EvDropped = "EvDropped"
+)
+
+var EvMap = map[string]string{
+    "A": EvAxisChanged,
+    "B": EvButtonChanged,
+    "Rl": EvButtonReleased,
+    "P": EvButtonPressed,
+    "Rp": EvButtonRepeated,
+    "C": EvConnected,
+    "D": EvDisconnected,
+    "Dr": EvDropped,
+}
