@@ -81,6 +81,11 @@ def gengo():
             output_file.write(f'{angle}: Zone{dir},\n')
 
 
+def fillSpaces(string):
+    maxlen = len("DownRight") + 1
+    return string + " " * (maxlen - len(string))
+
+
 def reverse_layout():
     with open(file) as input_file:
         content = input_file.readlines()
@@ -105,18 +110,21 @@ def reverse_layout():
 
             letter, left, right = line.split(', ')
             letter, left, right = letter.strip(), left.strip(), right.strip()
-            layout[(left,right)] = prefix + letter
+            layout[(left, right)] = prefix + letter
 
         for pair in dirpairs:
-            left,right = pair
-            letter = layout.get(pair,"None")
+
+            letter = layout.get(pair, "None")
             prefix = ""
             if letter.startswith(';'):
                 prefix = ';'
                 letter = letter[1:]
 
-            line = ', '.join([left, right, letter])
-            output_file.write(f'{prefix}{line}\n')
+            left, right = pair
+            left = prefix + left
+            left, right = fillSpaces(left), fillSpaces(right)
+            line = '| '.join([left, right, letter])
+            output_file.write(f'{line}\n')
 
 
 if __name__ == '__main__':
