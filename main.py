@@ -85,27 +85,13 @@ def reverse_layout():
     with open(file) as input_file:
         content = input_file.readlines()
 
-    mapping = {
-        "Right": 0,
-        "UpRight": 1,
-        "Up": 2,
-        "UpLeft": 3,
-        "Left": 4,
-        "DownLeft": 5,
-        "Down": 6,
-        "DownRight": 7,
-    }
-    revmap = {}
-    for k,v in mapping.items():
-        revmap[v]=k
-
-    dirs = list(mapping.keys())
-    print(dirs)
-    zonemap = {}
+    dirs = ['Right', 'UpRight', 'Up', 'UpLeft', 'Left', 'DownLeft', 'Down', 'DownRight']
+    dirpairs = []
     for dir1 in dirs:
-        for dirs in dirs:
-            pass
+        for dir2 in dirs:
+            dirpairs.append((dir1, dir2))
 
+    layout = {}
 
     with open('output.txt', mode='w+') as output_file:
         for line in content:
@@ -119,15 +105,18 @@ def reverse_layout():
 
             letter, left, right = line.split(', ')
             letter, left, right = letter.strip(), left.strip(), right.strip()
-            zonemap[(mapping[left],mapping[right])] = letter
+            layout[(left,right)] = prefix + letter
 
-        for k, v in zonemap.items():
-            left, right = k
-            left = revmap[left]
-            right = revmap[right]
+        for pair in dirpairs:
+            left,right = pair
+            letter = layout.get(pair,"None")
+            prefix = ""
+            if letter.startswith(';'):
+                prefix = ';'
+                letter = letter[1:]
 
-        line = ', '.join([left, right, letter])
-        output_file.write(f'{prefix}{line}\n')
+            line = ', '.join([left, right, letter])
+            output_file.write(f'{prefix}{line}\n')
 
 
 if __name__ == '__main__':

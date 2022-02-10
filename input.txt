@@ -1,4 +1,3 @@
-Letter,  LeftStick,  RightStick
 A, Left, Left
 B, Left, UpLeft
 C, Left, Up
