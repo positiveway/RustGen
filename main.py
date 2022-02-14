@@ -127,6 +127,17 @@ def reverse_layout():
             output_file.write(f'{line}\n')
 
 
+def replace_separators():
+    with open(file) as input_file:
+        content = input_file.readlines()
+
+    with open('output.txt', mode='w+') as output_file:
+        for line in content:
+            line = line.replace('|', '&', 1)
+            line = line.replace('|', ':', 1)
+            output_file.write(f'{line}')
+
+
 if __name__ == '__main__':
     file = 'input.txt'
-    reverse_layout()
+    replace_separators()
